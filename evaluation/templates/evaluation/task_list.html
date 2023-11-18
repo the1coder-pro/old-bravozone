@@ -1,0 +1,134 @@
+{% extends 'main/base.html' %}
+{% block title %} Home  {% endblock %}
+{% block content %}
+<div class="container employee ">
+<section class="vh-100 gradient-custom-2 mb-3"> 
+   
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-10">
+            <div class="card-footer text-end p-3">
+    {% if user.is_superuser %}
+                <a href="{% url 'evaluation:task_create' %}"><button class="btn  text-light mb-4" style="  background:#0b6bd3; ">Add Task</button></a>
+              {% endif %}
+              </div>
+  
+          <div class="card ">
+            <div class="card-body p-4 text-white">
+  
+              <div class="text-center pt-3 pb-5">
+                <h2 class="my-4"><i class="bi bi-list-stars"></i></span> Task List </h2>
+              </div>
+  
+              <table class="table text-white mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Team Member</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+{% for task in all_tasks %}
+
+                  <tr class="fw-normal">
+                    <th>
+                      {% with task.assigned_to as task_user %}
+                      <img src="{{ task_user.profile_picture.url }}"
+                        alt="avatar 1" style="width: 45px; height: auto; border-radius: 50%;">
+
+                      <span class="ms-2">{% if task_user.first_name %}{{ task_user.first_name }} {{ task_user.last_name }} {% else %} {{task_user.username}} {% endif %}</span>
+                      {% endwith %}
+                    </th>
+                    <td class="align-middle">
+                      <a href="{% url 'evaluation:task_detail' task.id %}"><span>{{ task.name }}</span></a>
+                    </td>
+                    <td class="align-middle">
+                      {% if task.status == 'completed' %}
+                      <h6 class="mb-0"><span class="badge bg-danger">Completed</span></h6>
+                      {% endif %}
+
+                      {% if task.status == 'in_process' %}
+                      <h6 class="mb-0"><span class="badge bg-success">In Process</span></h6>
+                      {% endif %}
+
+                      {% if task.status == 'not_started' %}
+                      <h6 class="mb-0"><span class="badge bg-warning">Not Started</span></h6>
+                      {% endif %}
+                    </td>
+                    
+                    <td class="align-middle">
+                     
+                      <a href="{% url 'evaluation:delete_task' task.id %}" data-mdb-toggle="tooltip" title="Remove">
+                        <i class="bi bi-trash text-black"></i>
+                        <!-- <i class="fas fa-trash-alt fa-lg text-warning"></i> -->
+                          
+                        </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                 
+                    
+                 
+                </tbody>
+              </table>
+  
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{%endblock%}
+
+{% comment %} ---------------------------all_tasks ----------------------- {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+</head>
+<body>
+    {% if user.is_superuser %}
+    <h1>Task List (Supervisor {{ user.username }})</h1>
+    
+{% for task in all_tasks %}
+    <h2>{{ task.name }}</h2>
+    <p>{{ task.content }}</p>
+    <p>Start Time: {{ task.start_time }}</p>
+    <p>End Time: {{ task.end_time }}</p>
+    <p>Points: {{ task.points }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Assigned to: {{ task.assigned_to }}</p>
+
+    <a href="{% url 'evaluation:task_detail' task.id %}">View Details</a>
+
+    <hr>
+{% empty %}
+    <p>No tasks available.</p>
+{% endfor %}
+<a href="{% url 'evaluation:task_create' %}">Create New Task</a>
+{% else %}
+<h1>Task List ({{ user.username }})</h1>
+    
+{% for task in user.tasks.all %}
+    <h2>{{ task.name }}</h2>
+    <p>{{ task.content }}</p>
+    <p>Start Time: {{ task.start_time }}</p>
+    <p>End Time: {{ task.end_time }}</p>
+    <p>Points: {{ task.points }}</p>
+    <p>Status: {{ task.status }}</p>
+    <a href="{% url 'evaluation:task_detail' task.id %}">View Details</a>
+
+    <hr>
+{% empty %}
+    <p>No tasks available.</p>
+{% endfor %}
+{% endif %}
+</body>

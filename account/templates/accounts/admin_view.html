@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% block title %} Admin View {% endblock %}
+{% block content %}
+  {% if user.is_superuser %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="clearfix ">
+    <div class="container m-5" data-aos="fade-up ">
+
+      <div class="hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="/static/img/hero-img.svg" alt="" class="img-fluid">
+      </div>
+
+      <div class="hero-info" data-aos="zoom-in" data-aos-delay="100">
+        <h2>Manager Page <br></h2>
+        <h2 class="mt-5 mb-5 ms-5 text-decoration-none display-6 text-warning  "> {{ user.username }} </h2>
+        <div>
+            <a href="{%url 'account:register_employee'%}" class="btn-get-started scrollto">Add Employee</a>
+            <a href="{%url 'account:logout'%}" class="btn-services scrollto">Logout</a>
+          </div>
+      </div>
+
+    </div>
+  </section><!-- End Hero Section -->
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="section-">
+        <div class="container" data-aos="fade-up">
+  
+          <header class="section-header  m-5">
+            <h3>Employees</h3>
+          </header>
+  
+          <div class="row justify-content-center">
+  
+            {% for employee in users %}
+            {% with employee.education.all|first as education  %}
+            <div class="col-md-6 col-lg-5" data-aos="zoom-in" data-aos-delay="200">
+              <div class="box">
+                <div class="icon"><i class="bi bi-card-checklist" style="color: #e9bf06;"></i></div>
+                <h4 class="title"><a href="">{{ employee.username }}</a></h4>
+                <p class="description">Employee Number: {{ employee.employee_number }}</p>
+                <p class="description">Email: {{ employee.email }}</p>
+                <a class="btn" style="color: #e9bf06;" href="/evaluation/tasks/create?assigned_to={{employee.id}}">Assign Task</a>
+                <a class="btn" style="color: #e9bf06;" href="{% url 'account:user_profile' user_id=employee.id  %}">View Profile</a>
+    
+              </div>
+
+            </div>
+            {% endwith %}
+            {% endfor %}
+            {% endif %}
+
+          </div>
+  
+        </div>
+      </section><!-- End Services Section -->
+{%endblock%}

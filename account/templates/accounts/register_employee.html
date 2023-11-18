@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+{% block title %} Sign Up  {% endblock %}
+{% block content %}
+<div class="container login">
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <h1 class="text-center txt fw-bold">Register Employee</h1>
+   
+            <form method="POST" enctype="multipart/form-data" action="{% url 'account:register_employee' %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-4">
+              <label class="form-label txt fw-bold fontsize" for="id_username">First Name:</label>
+              {{ employee_form.first_name }} </br>
+              <label class="form-label text-danger fo" for="form3Example3">*Enter the first letter as a capital </label>
+              
+            <label class="form-label txt fw-bold fontsize" for="id_username">Employee Number:</label>
+          {{ employee_form.username }} </br>
+          <label class="form-label text-danger fo" for="form3Example3">*Enter a unique number </label>
+            <label for="id_password1" class="form-label txt fw-bold fontsize">Password:</label>
+            {{ employee_form.password1 }}</br>
+            <label class="form-label text-danger fo" for="form3Example3">*Enter a Strong Password </label>
+          
+            <label for="id_profile_picture"class="form-label txt fw-bold fontsize">Profile Picture:</label>
+            {{ employee_form.profile_picture }}
+        </div>
+        <div class="col-md-6 mb-4">
+          <label for="id_email"class="form-label txt fw-bold fontsize">Last Name:</label>
+            {{ employee_form.last_name }} </br></br>
+            <label for="id_email"class="form-label txt fw-bold fontsize">Email:</label>
+            {{ employee_form.email }} </br></br>
+            <label for="id_password2"class="form-label txt fw-bold fontsize">Confirm Password:</label>
+            {{ employee_form.password2 }}
+         
+            <input type="text" name="role" value="user" hidden>
+            <!-- <label for="id_skills"class="form-label txt fw-bold fontsize">Skills:</label>
+            {{ qualification_form.skills }}
+             -->
+        </div>
+        <div class="text-center  mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg "
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+          </div>
+        <!-- <input type="submit" value="Sign Up"> -->
+    </form>
+</div>
+</div>
+</div>
+  </section>
+  </div>
+{%endblock%}

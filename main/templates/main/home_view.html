@@ -1,0 +1,91 @@
+{% extends 'main/base.html' %}
+{% block title %} Home  {% endblock %}
+{% block content %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="clearfix">
+    <div class="container" data-aos="fade-up">
+      <div class="hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="static/img/hero-img.svg" alt="" class="img-fluid">
+      </div>
+      <div class="hero-info" data-aos="zoom-in" data-aos-delay="100"> 
+        <h2 class=" mt-3 mb-3 text-decoration-none display-5 text-light font-weight-bold titleh ">Unleash your potential</h2>
+        <h3 class=" mt-5 mb-5 text-decoration-none display-6 text-warning ">Reap the rewards!</h3>        <div>
+          {% if not request.user.is_authenticated %}
+          <a href="{%url 'account:signup'%}" class="btn-get-started scrollto">Get Started</a>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero Section -->
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h3>About Us</h3>
+          <p> 
+            At Bravo Zone, we are passionate about empowering companies to cultivate a culture of appreciation and motivation. Our platform revolutionizes how tasks are assigned, evaluated, and rewards are distributed, all with the goal of recognizing and fostering outstanding performance. Join us on this journey of inspiring excellence and creating a workplace where every achievement is celebrated and every employee thrives.
+          </p>
+        </header>
+        <div class="row about-container">
+          <div class="col-lg-6 content order-lg-1 order-2">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-person-vcard"></i></div>
+              <h4 class="title"><a href="">Peer Recognition and Feedback</a></h4>
+              <p class="description">Staff members can identify and appreciate each other's achievements and exchange comments across the platform.</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><i class="bi bi-brightness-high"></i></div>
+              <h4 class="title"><a href="">Manager Recognition and Guidance</a></h4>
+              <p class="description">Managers and colleagues can provide constructive guidance and recognize the distinct achievements of staff.</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><i class="bi bi-stars"></i></div>
+              <h4 class="title"><a href="">Point-Based Rewards</a></h4>
+              <p class="description">Points are allocated for each achievement or goal accomplished, and staff members with a high number of points receive rewards and recognition.</p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 background order-lg-2" data-aos="zoom-in">
+            <img src="static/img/about-img.svg" class="img-fluid" alt="">
+          </div>
+        </div>
+
+        <div class="row about-container mb-5">
+          <div class="col-lg-6 background order-lg-1" data-aos="zoom-in">
+            <img src="static/img/about-extra-2.svg" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 content order-lg-2 order-2 mt-5">
+         
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-card-checklist"></i></div>
+              <h4 class="title"><a href="">Leaderboards</a></h4>
+              <p class="description"> The platform displays leaderboards showcasing the best performers and highest achievers, promoting positive competitiveness among staff.</p>
+            </div>
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><i class="bi bi-pencil-square"></i></div>
+              <h4 class="title"><a href="">Profile Management</a></h4>
+              <p class="description">Each staff member can manage their personal file, add experiences, courses, record achievements and projects. Managers can provide guidance and adjust staff information.</p>
+            </div>
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><i class="bi bi-list-task"></i></div>
+              <h4 class="title"><a href="">Task Assignment</a></h4>
+              <p class="description">Managers can assign tasks to staff members, raising the level of evaluation and performance.
+              </p>
+            </div>
+
+          </div>
+
+          
+        </div>
+
+      
+
+      </div>
+    </section>
+  </main>
+{%endblock%}

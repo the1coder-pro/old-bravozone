@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+<head>
+  <title>{% block title %} {% endblock %}</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{%static 'img/favicon.png'%}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700"
+    rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+      <!-- profil-->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/aos/aos.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static  'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex justify-content-between">
+
+      <div class="logo">
+        <!-- Uncomment below if you prefer to use an text logo -->
+        <!-- <h1><a href="index.html">NewBiz</a></h1> -->
+        {% if request.user.is_superuser %}
+
+        <a href="{% url 'account:home' %}"><img src="{% static 'img/bzlogo.png'%}" alt="" class="img-fluid" width="70px" height="outo"></a>
+        {%else%}
+        <a href="{% url 'main:home_view' %}"><img src="{% static 'img/bzlogo.png'%}" alt="" class="img-fluid" width="70px" height="outo"></a>
+
+        {%endif%}
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          {% if request.user.is_superuser %}
+          <li><a class="nav-link scrollto " href="{%url 'account:home'%}">Home</a></li>
+          {%else%}
+          <li><a class="nav-link scrollto " href="{%url 'main:home_view'%}">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          {%endif%}
+          {% if request.user.is_authenticated and not request.user.is_superuser %}
+          <li><a class="nav-link scrollto" href="{%url 'account:profile'%}">Profile</a></li>
+          <li><a class="nav-link scrollto " href="{%url 'main:leader_bord'%}">leaderboard</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'evaluation:my_task_list' %}">My task</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'account:all_emploee' %}">All employees</a></li>
+          <li><a class="nav-link scrollto" href="#">{{ user.first_name }}</a></li>
+
+          {%endif%}
+          {% if request.user.is_superuser %}
+          <li><a class="nav-link scrollto " href="{%url 'main:leader_bord'%}">leaderboard</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'evaluation:task_list' %}">All tasks</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'account:all_emploee' %}">All employees</a></li>
+          <li><a class="nav-link scrollto" href="#">{{ user.username }}</a></li>
+
+          {%endif%}
+
+          </li>
+
+          <li><a class="nav-link scrollto" href="#acconut">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+              </svg>
+            </a></li>
+          {% if request.user.is_authenticated %}
+          <li><a class="nav-link scrollto" href="{% url 'account:logout' %}">Logout</a></li>
+          {%else%}
+          <li><a class="nav-link scrollto" href="{% url 'account:logout' %}">Login</a></li>
+          {%endif%}
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- #header -->
+  {% block content %}
+  {% endblock %}
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3>BravoZone</h3>
+            <p>
+              "Welcome to Bravo zone , where recognition and motivation meet in perfect harmony! Step into a world where
+              outstanding achievements are celebrated, and hard work is rewarded. We're thrilled to have you join our
+              community of excellence, where every milestone becomes a stepping stone towards greater success. Together,
+              let's create a culture of appreciation and inspire each other to reach new heights. Welcome!"
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Our team</h4>
+            <ul>
+              <li><a href="#">Basma Alshahrani</a></li>
+              <li><a href="#">Ghaida allhyani</a></li>
+              <li><a href="#">Nada Almutairi</a></li>
+              <li><a href="#">Manal Alzahrani</a></li>
+              <li><a href="#">Lama Alsharif</a></li>
+              
+
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              SaudiArabia, Riyadh<br>
+              AlMalqa <br>
+              <strong>Phone:</strong> +966 556122568<br>
+              <strong>Email:</strong> Basmabadya@gmail.com<br>
+
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-newsletter">
+            <a href="index.html"><img src="{% static 'img/bz2logo.png'%}" alt="" class="img-fluid" width="250px"
+                height="outo"></a>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>BravoZone</strong>. All Rights Reserved
+      </div>
+
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js'%}"></script>
+  <script src="{% static 'vendor/aos/aos.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js'%}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js'%}"></script>
+
+</body>
+
+</html>

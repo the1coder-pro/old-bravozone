@@ -1,0 +1,97 @@
+{% extends 'main/base.html' %}
+{% block title %} Add Task  {% endblock %}
+{% block content %}
+<div class="herotask">
+    <div class="row text-center patask">
+      <h1 class="txt fw-bold text-white">Add Task</h1>
+    </div>
+    <div class="container pb-5 ">
+        <form method="post" action="{% url 'evaluation:task_create' %}">
+            {% csrf_token %}
+            <div class="row borderr ">
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <label class="form-label txt fw-bold mt-3" for="id_name" >Task Title  </label><br>
+                    {{ form.name }}<br>
+                    <label class="form-label txt fw-bold mt-3" for="id_assigned_to" >Task Member  </label><br>
+                    <select name="assigned_to" required id="id_assigned_to">
+                        <option value="" selected>---------</option>
+                        {% for employee in employees %}
+                        <option value="{{ employee.id }}">{% if employee.first_name %} {{ employee.first_name }} {{employee.last_name}} {% else %} {{ employee.username }} {% endif %} </option>
+                      {% endfor %}
+                      </select>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label txt fw-bold fontsize mt-3 date" for="id_start_time">Start Date</label>
+                            {{ form.start_time }}
+                        </div>
+                        <div class="col-md-6 mb-4 ps-5">
+                            <label class="form-label txt fw-bold fontsize mt-3 date" for="id_end_time">End Date</label>
+                            {{ form.end_time }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label txt fw-bold fontsize mt-3 date" for="id_status">Status </label><br>
+                            {{ form.status }} <br>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label txt fw-bold fontsize mt-3 date" for="id_points">Select Points</label><br>
+                            {{ form.points }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-lg-6 col-xl-5 offset-xl-1">
+                    <label class="form-label txt fw-bold mt-3" for="id_content">Task Description   </label><br>
+                    {{ form.content }}
+                </div>
+                <div class="row justify-content-center align-items-center mt-3">
+                    <button class="button " type="submit">
+                      <p>Create</p>
+                    </button>
+                  </div>
+                </div>
+        </form>
+    </div>
+</div>
+
+{%endblock%}
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Create Task</title>
+</head>
+<body>
+    <h1>Create Task</h1>
+    <form method="post" action="{% url 'evaluation:task_create' %}">
+        {% csrf_token %}
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+        <br>
+        <label for="id_content">Content:</label>
+        {{ form.content }}
+        <br>
+        <label for="id_start_time">Start Time:</label>
+        {{ form.start_time }}
+        <br>
+        <label for="id_end_time">End Time:</label>
+        {{ form.end_time }}
+        <br>
+        <label for="id_points">Points:</label>
+        {{ form.points }}
+        <br>
+        <label for="id_status">Status:</label>
+        {{ form.status }}
+        <br>
+        <label for="id_assigned_to">Assigned To:</label>
+        
+        <select name="assigned_to" required id="id_assigned_to">
+            <option value="" selected>---------</option>
+            {% for employee in employees %}
+            <option value="{{ employee.id }}">{% if employee.first_name %} {{ employee.first_name }} {{employee.last_name}} {% else %} {{ employee.username }} {% endif %} </option>
+          {% endfor %}
+          </select>
+        <br>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html> -->

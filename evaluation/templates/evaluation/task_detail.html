@@ -1,0 +1,89 @@
+{% extends 'main/base.html' %}
+{% block title %} Home  {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+
+<div class="container pt-5 pb-4">
+    <div class="row">
+        <div class="col-md pt-5">
+            <div class="osahan-account-page-right shadow-lg bg-white p-4 h-100">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade  active show" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                        <div class="row">  
+                            <div class="col-md">
+                                <div class="bg-white card addresses-item mb-4 shadow-lg">
+                                    <div class="gold-members p-4">
+                                        <div class="media">
+                                            <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i></div>
+                                            <div class="media-body">
+                                                <div class="row text-center">
+                                                    <div class="col-md-">
+                                                            <h2 class="mb-1 fw-bold">{{ task.name }} </h2><br>
+                                                            <h6 class="mb-1 ">{{ task.content }} </h6><br>
+                                                        <div class="row ">
+                                                            <div class="col-md-6 mb-4">
+                                                                <h6><i class="bi bi-calendar-week"></i>   {{ task.start_time }}</h6>
+                                                            </div>
+                                                            <div class="col-md-6 mb-4 ps-5">
+                                                                <h6><i class="bi bi-calendar-week"></i>   {{ task.end_time }}</h6>
+                                                            </div>
+                                                        </div>
+                                                        <h6><span class="pointptn">Points : {{ task.points }}🌟</span></h6>
+                                                        {{ task.status }}
+                                                        {% if user == task.assigned_to %}
+                                                        {% if task.status != 'completed' %}
+                                                            <form method="POST" action="{% url 'evaluation:update_task_status' task.id %}">
+                                                                {% csrf_token %}
+                                                                <select name="status">
+                                                                    <option value="completed">Completed</option>
+                                                                    <option value="in_progress">In Progress</option>
+                                                                    <option value="not_started">Not Started</option>
+                                                                </select>
+                                                                <button type="submit">Save</button>
+                                                            </form>
+                                                        {% endif %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Task Detail</title>
+</head>
+<body>
+    <h1>Task Detail</h1>
+    <p><strong>Name:</strong> {{ task.name }}</p>
+    <p><strong>Content:</strong> {{ task.content }}</p>
+    <p><strong>Start Time:</strong> {{ task.start_time }}</p>
+    <p><strong>End Time:</strong> {{ task.end_time }}</p>
+    <p><strong>Points:</strong> {{ task.points }}</p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
+
+    {% if task.status != 'completed' %}
+        <form method="POST" action="{% url 'evaluation:update_task_status' task.id %}">
+            {% csrf_token %}
+            <select name="status">
+                <option value="completed">Completed</option>
+                <option value="in_progress">In Progress</option>
+                <option value="not_started">Not Started</option>
+            </select>
+            <button type="submit">Save.</button>
+        </form>
+    {% endif %}
+
+    <a href="{% url 'evaluation:task_list' %}">Back</a>
+</body>
+</html> -->

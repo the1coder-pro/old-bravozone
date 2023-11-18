@@ -1,0 +1,142 @@
+{% extends 'main/base.html' %}
+{% block title %} LeaderBoard  {% endblock %}
+{% block content %}
+
+<div class="container employee">
+
+    <div class="container">
+        <div class="text-center pt-3 pb-2 d-flex justify-content-center ">
+                      
+            <h2 class="text-black mb-5"> <span> <i class="bi bi-list-stars"></i></span> LeaderBoard </h2>
+          </div>
+        <div class="row">
+           {% for employee in first_three_employees %}
+           {% if forloop.counter == 1 %}
+            
+            <div class="col-md-4">
+                <div class="card user-card">
+                    <div class="card-header">
+                        <h6 class="mb-0 display-6 "><span class="badge bg-c-blue rounded-5 ">{{forloop.counter}}st </span></h6>
+                    </div>
+                    <div class="card-block">
+                        <div class="user-image">
+                            <img src="{{ employee.employee.profile_picture.url }}" class="img-radius " >
+                        </div>
+                        <h6 class="f-w-600 m-t-25 m-b-10">{% if employee.employee.first_name %}{{ employee.employee.first_name }} {{ employee.employee.last_name }}{% else %} {{ employee.employee.username }} {% endif %}</h6>
+                        <hr>
+                        <p class="text-muted m-t-15">Point: {{ employee.total_points }} <i style="color: #ffcc00;" class="bi bi-star-fill"></i></p>
+                     
+    
+                        <div class="bg-c-blue counter-block m-t-10 p-30 rounded">
+                          <a class="btn text-light" href="/account/profile/{{employee.employee.id}}">Read More</a>
+                        </div>
+                       
+                       
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if forloop.counter == 2 %}
+            <div class="col-md-4">
+                <div class="card user-card">
+                    <div class="card-header">
+                        <h6 class="mb-0 display-6 "><span class="badge bg-c-green rounded-5 ">{{ forloop.counter }}nd </span></h6>
+                    </div>
+                    <div class="card-block">
+                        <div class="user-image">
+                            <img src="{{ employee.employee.profile_picture.url }}" class="img-radius" alt="User-Profile-Image">
+                        </div>
+                        <h6 class="f-w-600 m-t-25 m-b-10">{% if employee.employee.first_name %}{{ employee.employee.first_name }} {{ employee.employee.last_name }}{% else %} {{ employee.employee.username }} {% endif %}</h6>
+                        <hr>
+                        <p class="text-muted m-t-15">Points: {{ employee.total_points }} <i style="color: #ffcc00;" class="bi bi-star-fill"></i></p>
+                   
+                        <div class="bg-c-green counter-block m-t-10 p-30 rounded">
+                            <a class="btn text-light" href="/account/profile/{{employee.employee.id}}">Read More</a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if forloop.counter == 3 %}
+            <div class="col-md-4">
+                <div class="card user-card">
+                    <div class="card-header">
+                        <h6 class="mb-0 display-6 "><span class="badge bg-c-yellow rounded-5 ">{{ forloop.counter }}rd </span></h6>
+                    </div>
+                    <div class="card-block">
+                        <div class="user-image">
+                            <img src="{{ employee.employee.profile_picture.url }}" class="img-radius" alt="User-Profile-Image">
+                        </div>
+                        <h6 class="f-w-600 m-t-25 m-b-10">{% if employee.employee.first_name %}{{ employee.employee.first_name }} {{ employee.employee.last_name }}{% else %} {{ employee.employee.username }} {% endif %}</h6>
+                        <hr>
+                        <p class="text-muted m-t-15">Points: {{ employee.total_points }} <i style="color: #ffcc00;" class="bi bi-star-fill"></i></p>
+                        <div class="bg-c-yellow counter-block m-t-10 p-30 rounded">
+                          <a class="btn text-light" href="/account/profile/{{employee.employee.id}}">Read More</a>
+                        </div>
+                       
+                      
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+            {% endif %}
+
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+            
+  
+                <div class="card ">
+                  <div class="card-body p-4 ">
+        
+                    <div class="text-center pt-3 pb-2 d-flex justify-content-center ">
+                      
+                    </div>
+        
+                    <table class="table text-white mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col" width="10%">Rank</th>
+                          <th scope="col" width="20%">Employee</th>
+                          <th scope="col"class="text-center" width="50%">Points</th>
+                          <th scope="col">Tasks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for employee in ordered_list %}
+                        {% if forloop.counter > 3 and forloop.counter <= 10 %}
+                        <tr class="fw-normal ">
+                          <th class="text-secondary">{{ forloop.counter }}th</th>
+                          <th>
+                            <img src="{{ employee.employee.profile_picture.url }}"
+                              alt="avatar 1" style="width: 45px; height: auto;">
+                            <span class="ms-2">{% if employee.employee.first_name %}{{ employee.employee.first_name }} {{ employee.employee.last_name }}{% else %} {{ employee.employee.username }} {% endif %}</span>
+                          </th>
+                          <td class="text-center">
+                            <h6 class="mb-0"><span class="badge bg-c-yellow p-3 rounded-5">Points : {{ employee.total_points }}</span></h6>
+                          </td>
+                          <td class="align-middle">
+                            <h6 class="mb-0"><span class="">{{ employee.number_of_tasks }} Task</span></h6>
+                          </td>
+                         
+                        </tr>
+                      {% endif %}
+                          
+                       {% endfor %}
+                      </tbody>
+                    </table>
+        
+        
+                  </div>
+                </div>
+        
+              </div>
+        </div>
+    </div>
+    
+</div>
+{%endblock%}

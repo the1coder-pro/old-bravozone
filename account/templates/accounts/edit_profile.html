@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+{% block title %} Edit profile  {% endblock %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data" action="{% url 'account:edit_profile' user_id=profile_id %}">
+    {% csrf_token %}
+    
+    <section id="" class="profile">
+        <div class="container m-5">
+            <div class="container bootstrap snippets bootdey">
+                <div class="row">
+                  <div class="profile-nav col-md-3">
+                      <div class="panel">
+                          <div class="user-heading round">
+                           {% with profile_user.education.all|first as education %}
+                              <a href="#">
+                                 <img src="{{ profile_user.profile_picture.url }}" style="width: 130px;" alt="Profile Picture">
+                                                                </a>
+                                                                <h1 class="mt-4 text-light">{% if profile_user.first_name %}{{ profile_user.first_name }} {{ profile_user.last_name }}{% else %} {{ profile_user.username }} {% endif %}</h1>
+                                                                <p class="mt-4">{{ profile_user.email }}</p>
+                          </div>
+                                    
+                          <ul class="nav nav-pills nav-stacked d-flex  ">
+                            <li class=" me-5 el col-12 "><a href="{% url 'account:user_profile' user_id=profile_user.id %}"> <i class="fa fa-user ps-2  "></i> Profile </a></li>
+                            {% if user.is_superuser or user.id == profile_user.id %}
+                            <li class="active el col-12"><a href="{% url 'account:edit_profile' user_id=profile_user.id %}"> <i class="fa fa-edit ps-2 "></i> Edit profile</a></li>
+                            {%endif%}
+                        </ul>
+                      </div>
+                    </div>
+                        <div class="profile-info col-md-9">
+                            
+                            <div class="panel">
+                                <div class="bio-graph-heading">
+                                <textarea name="bio" style="width: 100%;">{{ profile_user.bio }}</textarea>
+                                </div>
+                        <div class="panel-body bio-graph-info p-5">
+                        <h1>University:<input type="text" class="form-control" name="university_name" value="{{ education.university_name }}"/></h1>
+                        <div class="row">
+                        <div class="bio-row">
+                            <p><span>First Name </span>:<input type="text" class="form-control" name="first_name" value="{{ profile_user.first_name }}"/></p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Last Name: </span> <input type="text" class="form-control" name="last_name" value="{{ profile_user.last_name }}"/></p>
+                            
+                            </div>
+                        <div class="bio-row">
+                        <p><span>Email: </span> <input type="text" class="form-control" name="email" value="{{ profile_user.email }}"/></p>
+                        </div>
+                        <div class="bio-row">
+                        <p><span>Skills </span>
+                                {{ education_form.skills }}
+                                </p>
+                        </div>
+                        <div class="bio-row">
+                            <p>Academic Degree : <input type="text" class="form-control" name="degree" value="{{ education.degree }}"/> </p>
+                            </div>
+                        <div class="bio-row">
+                        <p><span>Major </span>: <input type="text" class="form-control" name="major" value="{{ education.major }}"/> </p>
+                        </div>
+                        
+                            
+                               
+                        <button type="submit" >Update</button>
+                        </div>
+                        </div>
+                        </div>
+                        <div>
+                        {% endwith %}
+                      
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+
+                        </div>
+                        
+                        </section>
+                    </form>
+                        
+                        {%endblock%}
+
+                        
